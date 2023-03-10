@@ -16,7 +16,7 @@
     readarr_api_key: "{{ readarr_api_key }}"
     readarr_url: "{{ readarr_url }}"
   register: result
-- name: assert tag creation
+- name: assert tag idempotency
   assert:
     that:
       - result.changed == false
