@@ -65,8 +65,9 @@ class ReadarrModule(AnsibleModule):
         configuration = readarr.Configuration(
             host=self.params["readarr_url"]
         )
-        configuration.api_key['X-Api-Key'] = self.params["readarr_api_key"]
-        self.api = readarr.ApiClient(configuration)
+        # TODO: once the api client supports it use this instead of header
+        # configuration.api_key['X-Api-Key'] = self.params["readarr_api_key"]
+        self.api = readarr.ApiClient(configuration, 'X-Api-Key', self.params["readarr_api_key"])
 
     def _validate(self):
         if not HAS_READARR_LIBRARY:
