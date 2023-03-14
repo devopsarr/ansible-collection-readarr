@@ -1,1 +1,1 @@
-pyarr
+readarr-py

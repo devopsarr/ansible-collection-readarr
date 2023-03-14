@@ -1,7 +1,7 @@
 # Readarr Collection for Ansible
 [![CI](https://github.com/devopsarr/ansible-collection-readarr/workflows/CI/badge.svg?event=push)](https://github.com/devopsarr/ansible-collection-readarr/actions) [![Codecov](https://img.shields.io/codecov/c/github/devopsarr/ansible-collection-readarr)](https://codecov.io/gh/adevopsarr/ansible-collection-readarr)
 
-Ansible colletion for Readarr based on [pyarr SDK](https://github.com/totaldebug/pyarr)
+Ansible collection for Readarr based on [readarr-py SDK](https://github.com/devopsarr/readarr-py)
 ## Code of Conduct
 
 We follow the [Ansible Code of Conduct](https://docs.ansible.com/ansible/devel/community/code_of_conduct.html) in all our interactions within this project.

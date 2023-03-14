@@ -10,7 +10,7 @@ module: readarr_system_info
 
 short_description: Readarr system info module
 
-version_added: "1.0.0"
+version_added: "0.0.1"
 
 description: Provide Readarr system info
 
@@ -166,9 +166,15 @@ package_update_mechanism:
     sample: 'docker'
 '''
 
-# from ansible.module_utils.basic import AnsibleModule
-from ansible.module_utils.common.dict_transformations import camel_dict_to_snake_dict
 from ansible_collections.devopsarr.readarr.plugins.module_utils.readarr_module import ReadarrModule
+from ansible.module_utils.common.text.converters import to_native
+
+
+try:
+    import readarr
+    HAS_READARR_LIBRARY = True
+except ImportError:
+    HAS_READARR_LIBRARY = False
 
 __metaclass__ = type
 
@@ -178,15 +184,20 @@ def run_module():
         changed=False,
     )
 
-    # init ReadarrModule
     module = ReadarrModule(
+        argument_spec={},
         supports_check_mode=True
     )
 
-    # get the response from api
-    response = module.api.get_system_status()
-    # map the response to result
-    result.update(**camel_dict_to_snake_dict(response))
+    client = readarr.SystemApi(module.api)
+
+    # Get the system status.
+    try:
+        response = client.get_system_status()
+    except Exception as e:
+        module.fail_json('Error retrieving system status: %s' % to_native(e.reason), **result)
+
+    result.update(response)
 
     module.exit_json(**result)
 
